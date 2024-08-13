@@ -1,16 +1,17 @@
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const connectDB = require('./config/db')
 
 const userRoute = require('./routes/user.route');
 const communityRoute = require('./routes/community.route');
 
-
 dotenv.config();
+connectDB()
 
-mongoose.connect(process.env.MONGODB_URI);
+// mongoose.connect(process.env.MONGODB_URI);
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
