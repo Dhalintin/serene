@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 
 const userRoute = require('./routes/user.route');
+const communityRoute = require('./routes/community.route');
 
 
 dotenv.config();
@@ -26,6 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api/v1/user', userRoute);
+app.use('/api/v1/community', communityRoute);
 
 
 const port =  process.env.PORT || 3000;

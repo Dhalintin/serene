@@ -1,13 +1,8 @@
 const User = require('../models/user.model');
 
 class UserService {
-    async getUser(walletid, username = null){
-        const existingUser = await User.findOne({
-            $or: [
-                { username: username },
-                { walletid: walletid }
-            ]
-        });
+    async getUser(walletid){
+        const existingUser = await User.findOne({ walletid });
         return existingUser
     }
 
