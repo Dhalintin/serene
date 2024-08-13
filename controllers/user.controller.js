@@ -1,66 +1,75 @@
 const UserService = require('../services/user.service.js');
 const jwt = require('jsonwebtoken');
+const UserUtil = require('../utils/username.util')
+
 
 class UserController{
 
     // User Signup
-    async signup (req, res){
+    // async signup (req, res){
 
-        const { walletid, username }  = req.body
+    //     const { walletid, username }  = req.body
 
-        const existingUser = await UserService.getUser(walletid, username);
+    //     const existingUser = await UserService.getUser(walletid, username);
 
-        if(existingUser){
-            return res.status(400).json({
-                success: false,
-                messsage: "This wallet ID has already been used"
-            })
-        }
+    //     if(existingUser){
+    //         return res.status(400).json({
+    //             success: false,
+    //             messsage: "This wallet ID has already been used"
+    //         })
+    //     }
 
-        try{
-            const user = await UserService.addUser(walletid, username);
+    //     try{
+    //         const user = await UserService.addUser(walletid, username);
 
-            res.status(200).json({
-                success: true,
-                message: "User added succesfully",
-                data: user
-            })
+    //         res.status(200).json({
+    //             success: true,
+    //             message: "User added succesfully",
+    //             data: user
+    //         })
 
-        }catch(error){
-            return res.status(401).json({
-                success: false,
-                message: error.message
-            })
-        }
-    }
+    //     }catch(error){
+    //         return res.status(401).json({
+    //             success: false,
+    //             message: error.message
+    //         })
+    //     }
+    // }
 
-    // User Login
+    // User Login/Signup
     async login (req, res){
         try{
             const { walletid } = req.body;
 
             const user = await UserService.getUser(walletid);
 
-            if(!user){
-                return res.status(400).json({
-                    success: false,
-                    message: "Authentication failed"
+            if(user){
+                const token = jwt.sign({
+                    username: user.username,
+                    walletid: user.walletid,
+                }, process.env.JWT_KEY, {
+                    expiresIn: "72h",
+                });
+    
+                return res.status(200).json({
+                    success: true,
+                    message: "Login successful",
+                    data: user,
+                    token: token
                 })
             }
 
-            const token = jwt.sign({
-                username: user.username,
-                walletid: user.walletid,
-            }, process.env.JWT_KEY, {
-                expiresIn: "72h",
-            });
+            const username = await UserUtil.getRandomName()
 
-            return res.status(200).json({
+            const newUser = await UserService.addUser(walletid, username);
+
+            res.status(200).json({
                 success: true,
-                message: "Login successful",
-                data: user,
-                token: token
+                message: "User added succesfully",
+                data: newUser
             })
+
+            
         }catch(error){
             res.status(401).json({
                 success: false,
