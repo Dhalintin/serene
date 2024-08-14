@@ -2,13 +2,11 @@ const express = require('express');
 const router = express.Router();
 
 const community = require('../controllers/community.controller');
+const communityValidation = require('../middlewares/createcommunity.middleware');
 
 
 // Creating a community
-router.post('/create', community.create);
-
-// Searching for a community
-// router.get('/:param');
+router.post('/create', communityValidation, community.create);
 
 // Joining a community
 router.post('/join', community.join);
