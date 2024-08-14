@@ -7,6 +7,7 @@ const connectDB = require('./config/db')
 
 const userRoute = require('./routes/user.route');
 const communityRoute = require('./routes/community.route');
+const category_route = require('./routes/category.route')
 
 dotenv.config();
 connectDB()
@@ -29,6 +30,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api/v1/user', userRoute);
 app.use('/api/v1/community', communityRoute);
+app.use('/api/v1/category', category_route )
 
 
 const port =  process.env.PORT || 3000;
