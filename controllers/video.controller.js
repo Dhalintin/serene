@@ -110,7 +110,91 @@ class VideoController{
         }
     }
 
+    async  update_video(req, res) {
+        const { id } = req.params;
+        const { title, link, desc, cat_id } = req.body;
+
+        const video_id_exists = await video_service.get_a_video(id)
+        if(!video_id_exists){
+            return res.status(404).json({
+                status: false,
+                message: `Video with such ID: ${id} is not found`
+            })
+        }
+        
+        // Only include fields that are provided
+        const data = {};
+        if (title !== undefined) data.title = title;
+        if (link !== undefined) data.link = link;
+        if (desc !== undefined) data.desc = desc; 
+        if (cat_id !== undefined) data.cat_id = cat_id; 
     
+        // Check if there's any data to update
+        if (Object.keys(data).length === 0) {
+            return res.status(400).json({
+            status: false,
+            message: 'No data provided for update'
+            });
+        }
+    
+        try {
+            const update_video = await video_service.update_video(id, data);
+            
+            if (update_video) {
+            return res.status(200).json({
+                status: 'Success',
+                message: 'Video updated successfully',
+                data: update_video
+            });
+            } else {
+            return res.status(404).json({
+                status: 'Error',
+                message: 'Category not found'
+            });
+            }
+        } catch (error) {
+            // console.error(error);  
+            if (error.name === "CastError") {
+                return res.status(400).json({
+                    status: 'Error',
+                    message: 'Invalid Id format'
+                });
+            }
+            return res.status(500).json({
+            status: 'Error',
+            message: 'An error occurred while updating the category'
+            });
+        }
+    }
+
+    
+    async delete_video(req, res) {
+        const { id } = req.params
+        const video_id_exists = await video_service.get_a_video(id)
+        
+         if (!video_id_exists) {
+             return res.status(404).json({
+                 status: 'Fail',
+                 message: `Video with such ID: ${id} does not exist`
+             });
+         }
+        try {
+           
+            const delete_video = await video_service.delete_video(id);
+            if (delete_video) { 
+                return res.status(200).json({
+                    status: 'Success',
+                    message: 'Video deleted successfully'
+                })
+            }
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({
+                status: 'Error',
+                message: 'An error occurred while deleting the category'
+            })
+        }
+    }
 }
 
 const video_controller = new VideoController()

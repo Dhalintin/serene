@@ -16,6 +16,37 @@ class VideoService{
         const video = new Video({title, link, desc, cat_id})
         return  await video.save()
     }
+
+    async  update_video(video_id, updates) {
+        const updateObject = {};
+        
+        if (updates.title !== undefined) {
+            updateObject.title = updates.title;
+        }
+        
+        if (updates.link !== undefined) {
+            updateObject.link = updates.link;
+        }
+
+        if (updates.desc !== undefined) {
+            updateObject.desc = updates.desc;
+        }
+        if (updates.cat_id !== undefined) {
+            updateObject.cat_id = updates.cat_id;
+        }
+
+        const updated_video = await Video.findByIdAndUpdate(
+            video_id,
+            { $set: updateObject },
+            { new: true}
+        );
+        
+        return updated_video !== null;
+    }
+
+    async delete_video(video_id) {
+        await Video.findByIdAndDelete(video_id);
+    }
 }
 
 const video_service = new VideoService()
