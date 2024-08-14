@@ -1,8 +1,8 @@
-const { signupSchemaValidation } = require('../validations/user.validation');
+const { createCommunitySchemaValidation } = require('../validations/community.validations');
 
 
 module.exports = (req, res, next) => {
-    const { error } = signupSchemaValidation.validate(req.body);
+    const { error } = createCommunitySchemaValidation.validate(req.body);
     if(error){
         let errorMessage = error.message.replace(/"/g, '');
         errorMessage = errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);

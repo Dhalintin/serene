@@ -9,6 +9,7 @@ class UserService {
 
     async addUser (walletid, username){
         const user = new User({ walletid, username });
+        user.save();
         return await user;
     }
 
