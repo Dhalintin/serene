@@ -80,7 +80,7 @@ class CommunityController{
 
     async post(req, res){
         try{
-            const { userId, communityId, message, time } = req.body;
+            const { userId, communityId, message } = req.body;
 
             const community = await CommunityService.findCommunityById(communityId);
             const user = await User.getUserById(userId);

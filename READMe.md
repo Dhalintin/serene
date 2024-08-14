@@ -1,7 +1,3 @@
-Here’s a standard README file for your Serene backend app, following best practices:
-
----
-
 # Serene Backend
 
 ## Overview
@@ -36,8 +32,8 @@ The Serene Backend is the server-side application powering the Serene app, which
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/serene-backend.git
-   cd serene-backend
+   git clone https://github.com/dhalintin/serene.git
+   cd serene
    ```
 
 2. Install dependencies:
@@ -48,13 +44,13 @@ The Serene Backend is the server-side application powering the Serene app, which
 3. Set up the environment variables. Create a `.env` file in the root directory and add the following:
    ```bash
    JWT_KEY=your_jwt_secret
-   MONGO_URI=your_mongo_connection_string
+   MONGO_URL=your_mongo_connection_string
    PORT=5000
    ```
 
 4. Start the server:
    ```bash
-   npm start
+   npm run start
    ```
 
 ## Configuration
@@ -62,45 +58,44 @@ The Serene Backend is the server-side application powering the Serene app, which
 The backend relies on environment variables for configuration. Below are the key variables:
 
 - `JWT_KEY`: Secret key for JWT token generation.
-- `MONGO_URI`: MongoDB connection string.
+- `MONGO_URL`: MongoDB connection string.
 - `PORT`: The port on which the server runs (default is 5000).
 
 ## API Endpoints
 
 ### Authentication
 
-- **POST /api/auth/register**
-  - Registers a new user.
-  - Request Body: `email`, `password`, `username`
+- **POST /api/v1/user/login**
+  - Login/Registers a new user.
+  - Request Body: `walletid`,
   - Response: JSON containing the user details and JWT token.
-
-- **POST /api/auth/login**
-  - Logs in a user.
-  - Request Body: `email`, `password`
-  - Response: JSON containing the JWT token.
-
-### Users
-
-- **GET /api/users/:id**
-  - Retrieves user details by ID.
-  - Response: JSON containing user details.
 
 ### Communities
 
-- **POST /api/communities**
+- **POST /api/v1/community/create**
   - Creates a new community.
-  - Request Body: `name`, `description`, `tags`
+  - Request Body: `name`, `description`, `topics`, `rules`
   - Response: JSON containing community details.
 
-- **GET /api/communities**
-  - Retrieves a list of communities.
-  - Response: JSON containing a list of communities.
+- **POST /api/v1/community/join**
+  - Join a community.
+  - Request Body: `userId`, `communityId`
+  - Response: JSON containing community details.
 
+- **POST /api/v1/community/leave**
+  - Leave a community.
+  - Request Body: `userId`, `communityId`
+  - Response: JSON containing community details.
+  
+- **DELETE /api/v1/community/delete/id**
+  - Delete a community.
+  - Request Body: `communityId`.
+  - Response: JSON containing community details.
 ### Messages
 
-- **POST /api/messages**
+- **POST /api/v1/community/message**
   - Sends a message within a community.
-  - Request Body: `communityId`, `userId`, `content`
+  - Request Body: `communityId`, `userId`, `message`
   - Response: JSON containing the message details.
 
 ### Therapists
