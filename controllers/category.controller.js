@@ -47,6 +47,12 @@ class CategoryController {
                 data: category
             });
         } catch (error) {
+            if (error.name === "CastError") {
+                return res.status(400).json({
+                    status: 'Error',
+                    message: 'Invalid Id format'
+                });
+                }
             return res.status(500).json({
                 status: 'Error',
                 message: 'Error getting category',

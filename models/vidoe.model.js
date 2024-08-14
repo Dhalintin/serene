@@ -16,7 +16,7 @@ const videoSchema = new mongoose.Schema({
         required: [true, "{PATH} is Required"],
         trim: true
     },
-    category_id: {
+    cat_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
         required: [true, "{PATH} is Required"] 

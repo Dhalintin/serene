@@ -1,4 +1,6 @@
+const category_service = require('../services/category.service')
 const video_service = require('../services/video.service')
+const handleValidationError = require('../utils/validation-error.util')
 
 class VideoController{
 
@@ -75,7 +77,40 @@ class VideoController{
 
     async create_video(req, res){
         // all your code goes here
+        const {title, link, desc, cat_id} = req.body
+
+        try {
+            const cat_id_exists = category_service.get_category(cat_id)
+            if(!cat_id_exists){
+                return res.status(404).json({
+                    status: false,
+                    message: `Category with such ID: ${cat_id} is not found`
+                })
+            }
+            const video = await video_service.create_video(title, link, desc, cat_id)
+            res.status(201).json({
+                status: true,
+                data: video,
+                message: 'Video Created Successfully...'
+            })
+        } catch (error) {
+            if(error.name === "ValidationError"){
+               if (handleValidationError(res, error, 'title')) return;
+               if (handleValidationError(res, error, 'link')) return;
+               if (handleValidationError(res, error, 'desc')) return
+               if (handleValidationError(res, error, 'cat_id')) return
+            }
+            console.log(error)
+            return res.status(500).json({
+                status: false,
+                message: 'Error creating Video',
+                error: error.message,
+                name: error.name
+            })
+        }
     }
+
+    
 }
 
 const video_controller = new VideoController()

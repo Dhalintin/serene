@@ -12,7 +12,7 @@ class VideoService{
         return videos
     }
 
-    async create_videos(title, link, desc, cat_id){
+    async create_video(title, link, desc, cat_id){
         const video = new Video({title, link, desc, cat_id})
         return  await video.save()
     }
