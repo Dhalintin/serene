@@ -5,21 +5,26 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        trim: true,
+        trim: true
     },
     username: {
         type: String,
         required: true,
         unique: true,
-        trim: true,
+        trim: true
+    },
+    avatar: {
+        type: String,
+        required: true,
+        trim: true
     },
     createdAt: {
         type: Date,
-        default: Date.now,
+        default: Date.now
     },
     updatedAt: {
         type: Date,
-        default: Date.now,
+        default: Date.now
     }
 });
 
