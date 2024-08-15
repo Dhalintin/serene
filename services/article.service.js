@@ -35,6 +35,11 @@ class ArticleService {
 
         return updatedArticle !== null;
     }
+
+    async delete_article(article_id) {
+        const deletedArticle = await Article.findByIdAndDelete(article_id);
+        return deletedArticle
+    }
 }
 
 const article_service = new ArticleService()

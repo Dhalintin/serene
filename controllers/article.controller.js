@@ -130,6 +130,33 @@ class ArticleController {
             });
         }
     }
+
+    async delete_article(req, res) {
+        const {id} = req.params
+
+        const id_exists = await article_service.get_an_article(id)
+        if (!id_exists) {
+            return res.status(404).json({
+                status: false,
+                message: `Article with Such ID: ${id} does not exist`
+            });
+        }
+        try { 
+            const delete_article = await article_service.delete_article(id);
+            if (delete_article) { 
+                return res.status(200).json({
+                    status: true,
+                    message: 'Article deleted successfully'
+                })
+            }
+        } catch (e) {
+            console.error(e);
+            return res.status(500).json({
+                status: false,
+                message: 'An error occurred while deleting the category'
+            });
+        }
+    }
 }
 
 const article_controller = new ArticleController()

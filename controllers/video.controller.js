@@ -142,13 +142,13 @@ class VideoController{
             
             if (update_video) {
             return res.status(200).json({
-                status: 'Success',
+                status: true,
                 message: 'Video updated successfully',
                 data: update_video
             });
             } else {
             return res.status(404).json({
-                status: 'Error',
+                status: false,
                 message: 'Category not found'
             });
             }
@@ -156,12 +156,12 @@ class VideoController{
             // console.error(error);  
             if (error.name === "CastError") {
                 return res.status(400).json({
-                    status: 'Error',
+                    status: false,
                     message: 'Invalid Id format'
                 });
             }
             return res.status(500).json({
-            status: 'Error',
+            status: false,
             message: 'An error occurred while updating the category'
             });
         }
@@ -174,7 +174,7 @@ class VideoController{
         
          if (!video_id_exists) {
              return res.status(404).json({
-                 status: 'Fail',
+                 status: false,
                  message: `Video with such ID: ${id} does not exist`
              });
          }
@@ -183,14 +183,14 @@ class VideoController{
             const delete_video = await video_service.delete_video(id);
             if (delete_video) { 
                 return res.status(200).json({
-                    status: 'Success',
+                    status: false,
                     message: 'Video deleted successfully'
                 })
             }
         } catch (error) {
             console.error(error);
             return res.status(500).json({
-                status: 'Error',
+                status: false,
                 message: 'An error occurred while deleting the category'
             })
         }

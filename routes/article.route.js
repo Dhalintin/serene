@@ -6,6 +6,7 @@ const article_controller = require('../controllers/article.controller')
 router.route('/:id')
     .get(article_controller.get_an_article)
     .patch(article_controller.update_article)
+    .delete(article_controller.delete_article)
 
 router.route('/')
     .get(article_controller.get_all_articles)
