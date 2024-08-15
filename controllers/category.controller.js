@@ -107,9 +107,9 @@ class CategoryController {
             const data = await category_service.create_category(name, desc);
             
             return res.status(201).json({
-            status: true,
-            message: 'Category created successfully',
-            data
+                status: true,
+                message: 'Category created successfully',
+                data
             });
         } catch (e) {
            if (e.name === 'ValidationError') {
@@ -162,12 +162,12 @@ async  update_category(req, res) {
         console.error(error);  
         if (error.name === "CastError") {
         return res.status(400).json({
-            status: 'Error',
+            status: false,
             message: 'Invalid Id format'
         });
         }
         return res.status(500).json({
-        status: 'Error',
+        status: false,
         message: 'An error occurred while updating the category'
         });
     }
