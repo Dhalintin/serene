@@ -32,6 +32,13 @@ class UserController{
 
             const newUser = await UserService.addUser(walletid, username);
 
+            const token = jwt.sign({
+                username: newUser.username,
+                walletid: newUser.walletid,
+            }, process.env.JWT_KEY, {
+                expiresIn: "72h",
+            });
+
             res.status(200).json({
                 success: true,
                 message: "User added succesfully",
