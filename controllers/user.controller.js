@@ -31,8 +31,9 @@ class UserController {
             }
 
             const username = await UserUtil.getRandomName();
+            const avatar = await UserUtil.getRandomAvatar();
 
-            const newUser = await UserService.addUser(walletid, username);
+            const newUser = await UserService.addUser(walletid, username, avatar);
 
             const token = jwt.sign(
                 {

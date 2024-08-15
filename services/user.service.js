@@ -1,28 +1,26 @@
 const User = require('../models/user.model');
 
 class UserService {
-    async getUser(walletid){
+    async getUser(walletid) {
         const existingUser = await User.findOne({ walletid });
-        return existingUser
+        return existingUser;
     }
 
-
-    async addUser (walletid, username){
-        const user = new User({ walletid, username });
+    async addUser(walletid, username) {
+        const user = new User({ walletid, username, avatar });
         user.save();
         return await user;
     }
 
-
-    async allUsers(){
+    async allUsers() {
         const users = User.find({});
         return users;
     }
 
-    async getUserById(userId){
-        const user = User.findOne({ _id: userId});
+    async getUserById(userId) {
+        const user = User.findOne({ _id: userId });
         return user;
     }
 }
 
-module.exports = new UserService()
+module.exports = new UserService();
