@@ -6,6 +6,7 @@ const communityRoute = require('./community.route');
 const profRoute = require('./professionals.route');
 const category_route = require('./category.route');
 const video_route = require('./video.route');
+const sessionRoute = require('./session.route');
 
 // User Route
 router.use('/user', userRoute);
@@ -21,5 +22,8 @@ router.use('/category', category_route);
 
 // Video Route
 router.use('/video', video_route);
+
+// Session Route
+router.use('/session', sessionRoute);
 
 module.exports = router;
