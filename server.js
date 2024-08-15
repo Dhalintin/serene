@@ -9,6 +9,7 @@ const userRoute = require('./routes/user.route');
 const communityRoute = require('./routes/community.route');
 const category_route = require('./routes/category.route')
 const video_route = require('./routes/video.route')
+const article_route = require('./routes/article.route')
 
 dotenv.config();
 connectDB()
@@ -33,6 +34,7 @@ app.use('/api/v1/user', userRoute);
 app.use('/api/v1/community', communityRoute);
 app.use('/api/v1/category', category_route );
 app.use('/api/v1/video', video_route);
+app.use('/api/v1/article', article_route)
 
 
 
