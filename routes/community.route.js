@@ -1,27 +1,26 @@
 const express = require('express');
 const router = express.Router();
 
-
-// // Creating a community
-// router.post('/new', );
-
-// // Searching for a community
-// router.get('/:param');
-
-// // Joining a community
-// router.post('/');
+const community = require('../controllers/community.controller');
+const communityValidation = require('../middlewares/createcommunity.middleware');
 
 
-// // Posting in a community
-// router.post('/');
+// Creating a community
+router.post('/create', communityValidation, community.create);
 
-// // Leaving a community
-// router.put('/leave');
+// Joining a community
+router.post('/join', community.join);
 
 
-// // Deleting a community
-// router.delete('/:id');
+// Posting in a community
+router.post('/message', community.post);
 
+// Leaving a community
+router.post('/leave', community.leave);
+
+
+// Deleting a community
+router.delete('/delete/:id', community.delete);
 
 
 module.exports = router;
