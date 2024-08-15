@@ -107,9 +107,9 @@ class CategoryController {
             const data = await category_service.create_category(name, desc);
             
             return res.status(201).json({
-            status: true,
-            message: 'Category created successfully',
-            data
+                status: true,
+                message: 'Category created successfully',
+                data
             });
         } catch (e) {
            if (e.name === 'ValidationError') {
