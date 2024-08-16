@@ -3,23 +3,15 @@ const app = express();
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
+const cors = require('cors');
 
 const midRoute = require('./routes/midroute.route');
 
 dotenv.config();
 connectDB();
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', '*');
+app.use(cors());
 
-    if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-        return res.status(200).json({});
-    }
-
-    next();
-});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
