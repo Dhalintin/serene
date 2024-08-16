@@ -8,7 +8,7 @@ const professionalSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['Therapist', 'Counselor', 'Psychologist', 'Psychiatrist', 'Clinical Psychologist', 'Counseling Psychologist', 'Licensed Professional Counselor', 'Marriage and Family Therapist', 'Psychotherapist', 'Addiction Counselor', 'School Psychologist', 'Psychoanalyst', 'Child and Adolescent Psychologist', 'Occupational Therapist', 'Rehabilitation Counselor', 'Behavioral Therapist', 'Neuropsychologist', 'Forensic Psychologist'],
+        enum: ['Therapist', 'Counselor', 'Psychologist', 'Licensed Professional Counselor', 'Addiction Counselor', 'Rehabilitation Counselor', 'Behavioral Therapist'],
         required: true
     },
     specialization: {
@@ -32,21 +32,23 @@ const professionalSchema = new mongoose.Schema({
             trim: true
         }
     },
-    availability: [{
-        day: {
-            type: String,
-            enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-            required: true
-        },
-        startTime: {
-            type: String,
-            required: true
-        },
-        endTime: {
-            type: String,
-            required: true
+    availability: [
+        {
+            day: {
+                type: String,
+                enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                required: true
+            },
+            startTime: {
+                type: String,
+                required: true
+            },
+            endTime: {
+                type: String,
+                required: true
+            }
         }
-    }],
+    ],
     ratings: {
         type: Number,
         default: 0,
