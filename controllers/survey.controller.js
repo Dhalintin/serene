@@ -60,6 +60,15 @@ class SurveyController {
                 });
             }
 
+            const userResponse = await SurveyService.getRes(userId);
+
+            if (userResponse) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'This user has already submitted a response!'
+                });
+            }
+
             const survey = await SurveyService.store(userId, response);
 
             return res.status(200).json({
