@@ -12,7 +12,12 @@ const questionSchema = new mongoose.Schema({
             type: String,
             trim: true
         }
-    ]
+    ],
+    type: {
+        type: String,
+        required: true,
+        trim: true
+    }
 });
 
 const Question = mongoose.model('Question', questionSchema);

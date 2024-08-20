@@ -9,6 +9,7 @@ const video_route = require('./video.route');
 const sessionRoute = require('./session.route');
 const article_route = require('./article.route');
 const surveyRoute = require('./survey.route');
+const chatRoute = require('./chat.route');
 
 // User Route
 router.use('/user', userRoute);
@@ -33,5 +34,8 @@ router.use('/article', article_route);
 
 // Survey Route
 router.use('/survey', surveyRoute);
+
+// Chat Route
+router.use('/chat', chatRoute);
 
 module.exports = router;
