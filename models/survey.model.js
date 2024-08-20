@@ -6,7 +6,7 @@ const surveySchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    answers: [
+    response: [
         {
             type: String,
             trim: true

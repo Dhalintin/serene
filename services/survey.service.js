@@ -18,8 +18,8 @@ class SurveyService {
         return quest;
     }
 
-    async store(userId, data) {
-        const newSurvey = new Survey({ userId, data });
+    async store(userId, response) {
+        const newSurvey = new Survey({ userId, response });
         await newSurvey.save();
         return newSurvey;
     }
