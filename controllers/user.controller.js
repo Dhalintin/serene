@@ -28,30 +28,30 @@ class UserController {
                     data: user,
                     token: token
                 });
+            } else {
+                const username = await UserUtil.getRandomName();
+                const avatar = await UserUtil.getRandomAvatar();
+
+                const newUser = await UserService.addUser(walletid, username, avatar);
+
+                const token = jwt.sign(
+                    {
+                        username: newUser.username,
+                        walletid: newUser.walletid
+                    },
+                    process.env.JWT_KEY,
+                    {
+                        expiresIn: '72h'
+                    }
+                );
+
+                return res.status(200).json({
+                    success: true,
+                    message: 'User added succesfully',
+                    data: newUser,
+                    token: token
+                });
             }
-
-            const username = await UserUtil.getRandomName();
-            const avatar = await UserUtil.getRandomAvatar();
-
-            const newUser = await UserService.addUser(walletid, username, avatar);
-
-            const token = jwt.sign(
-                {
-                    username: newUser.username,
-                    walletid: newUser.walletid
-                },
-                process.env.JWT_KEY,
-                {
-                    expiresIn: '72h'
-                }
-            );
-
-            res.status(200).json({
-                success: true,
-                message: 'User added succesfully',
-                data: newUser,
-                token: token
-            });
         } catch (error) {
             res.status(401).json({
                 success: false,
