@@ -18,6 +18,12 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    type: {
+        type: String,
+        required: true,
+        trim: true,
+        default: 'patient'
+    },
     createdAt: {
         type: Date,
         default: Date.now

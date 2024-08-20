@@ -7,8 +7,8 @@ class SurveyService {
         return questions;
     }
 
-    async storeQuestion(question, options) {
-        const newQues = new Question({ question, options });
+    async storeQuestion(question, options, type) {
+        const newQues = new Question({ question, options, type });
         await newQues.save();
         return newQues;
     }

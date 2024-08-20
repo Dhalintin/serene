@@ -21,7 +21,7 @@ class SurveyController {
 
     async storeQuestion(req, res) {
         try {
-            const { question, options } = req.body;
+            const { question, options, type } = req.body;
 
             const existingQuestion = await SurveyService.findQuestion(question);
 
@@ -32,7 +32,7 @@ class SurveyController {
                 });
             }
 
-            const newQuest = await SurveyService.storeQuestion(question, options);
+            const newQuest = await SurveyService.storeQuestion(question, options, type);
 
             return res.status(200).json({
                 success: true,

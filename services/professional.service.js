@@ -3,7 +3,7 @@ const Professional = require('../models/professional.model');
 class ProfessionalService {
     async findProf(email, phone) {
         const existingProf = await Professional.findOne({
-            $or: [{ 'contactInfo.email': email }, { 'contactInfo.phone': phone }]
+            $or: [{ email }, { phone }]
         });
 
         return existingProf;
@@ -18,9 +18,9 @@ class ProfessionalService {
         const { name, type, specialization, experience, email, phone, day, startTime, endTime, rating } = body;
 
         const contactInfo = [email, phone];
-        const availability = [day, startTime, endTime];
+        const availability = { day, startTime, endTime };
 
-        const newProf = new Professional({ name, type, specialization, experience, contactInfo, availability, rating });
+        const newProf = new Professional({ name, type, specialization, experience, email, phone, contactInfo, availability, rating });
         await newProf.save();
         return newProf;
     }
@@ -33,6 +33,13 @@ class ProfessionalService {
     async getProf(id) {
         const prof = await Professional.find({ _id: id });
         return prof;
+    }
+
+    async getUserByMultipleId(senderId, recieverId) {
+        const user = Professional.find({
+            $or: [{ _id: senderId }, { _id: recieverId }]
+        });
+        return user;
     }
 
     async update(id, data) {

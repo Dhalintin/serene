@@ -21,6 +21,13 @@ class UserService {
         const user = User.findOne({ _id: userId });
         return user;
     }
+
+    async getUserByMultipleId(senderId, recieverId) {
+        const user = User.find({
+            $or: [{ _id: senderId }, { _id: recieverId }]
+        });
+        return user;
+    }
 }
 
 module.exports = new UserService();
