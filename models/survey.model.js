@@ -8,7 +8,7 @@ const surveySchema = new mongoose.Schema({
     },
     response: [
         {
-            questionid: {
+            id: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Question',
                 required: true
