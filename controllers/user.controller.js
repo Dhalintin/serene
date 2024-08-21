@@ -25,6 +25,7 @@ class UserController {
                 return res.status(200).json({
                     success: true,
                     message: 'Login successful',
+                    newuser: false,
                     data: user,
                     token: token
                 });
@@ -48,6 +49,7 @@ class UserController {
                 return res.status(200).json({
                     success: true,
                     message: 'User added succesfully',
+                    newuser: true,
                     data: newUser,
                     token: token
                 });
