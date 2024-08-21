@@ -13,11 +13,13 @@ const surveySchema = new mongoose.Schema({
                 ref: 'Question',
                 required: true
             },
-            answer: {
-                type: String,
-                required: true,
-                trim: true
-            }
+            answer: [
+                {
+                    type: String,
+                    required: true,
+                    trim: true
+                }
+            ]
         }
     ],
     createdAt: {
