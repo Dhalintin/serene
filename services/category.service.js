@@ -32,28 +32,24 @@ class CategoryService {
         return existingCategory !== null;
     }
 
-    async  update_category(category_id, updates) {
+    async update_category(category_id, updates) {
         const updateObject = {};
-        
+
         if (updates.name !== undefined) {
             updateObject.name = updates.name;
         }
-        
+
         if (updates.desc !== undefined) {
             updateObject.desc = updates.desc;
         }
 
-        const updatedCategory = await Category.findByIdAndUpdate(
-            category_id,
-            { $set: updateObject },
-            { new: true}
-        );
-        
+        const updatedCategory = await Category.findByIdAndUpdate(category_id, { $set: updateObject }, { new: true });
+
         return updatedCategory !== null;
     }
 
     async delete_category(category_id) {
-        await Category.findByIdAndDelete(category_id);
+        return await Category.findByIdAndDelete(category_id);
     }
 }
 
