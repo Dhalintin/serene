@@ -8,8 +8,16 @@ const surveySchema = new mongoose.Schema({
     },
     response: [
         {
-            type: String,
-            trim: true
+            questionid: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Question',
+                required: true
+            },
+            answer: {
+                type: String,
+                required: true,
+                trim: true
+            }
         }
     ],
     createdAt: {
