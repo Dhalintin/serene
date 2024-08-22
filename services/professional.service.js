@@ -26,7 +26,7 @@ class ProfessionalService {
     }
 
     async getAllProf() {
-        const profs = await Professional.find({});
+        const profs = await Professional.find({}).sort({ ratings: -1 });
         return profs;
     }
 
@@ -55,6 +55,11 @@ class ProfessionalService {
 
     async findByField(field) {
         const profs = await Professional.find({ type: field });
+        return profs;
+    }
+
+    async findByGender(gender) {
+        const profs = await Professional.find({}).sort({ gender: -1 });
 
         return profs;
     }

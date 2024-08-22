@@ -11,7 +11,19 @@ const professionalSchema = new mongoose.Schema({
         enum: ['Therapist', 'Counselor', 'Psychologist', 'Licensed Professional Counselor', 'Addiction Counselor', 'Rehabilitation Counselor', 'Behavioral Therapist'],
         required: true
     },
-    specialization: {
+    gender: {
+        type: String,
+        enum: ['Male', 'Female'],
+        required: true
+    },
+    expertise: [
+        {
+            type: String,
+            required: true,
+            trim: true
+        }
+    ],
+    about: {
         type: String,
         required: true,
         trim: true
