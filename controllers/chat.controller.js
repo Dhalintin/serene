@@ -33,20 +33,17 @@ class ChatController {
     }
 
     async getMessages(req, res) {
-        const id = req.body.id;
+        const roomId = req.body.roomId;
 
         try {
-            const existingUser = await UserService.getUserById(id);
-            const existingProf = await ProfService.findById(id);
+            const messages = await ChatService.getChatMessage(roomId);
 
-            if (!existingUser && !existingProf) {
+            if (!messages) {
                 return res.status(401).json({
                     success: false,
                     message: "Chat doesn't exist!"
                 });
             }
-
-            const messages = await ChatService.getMessage(id);
 
             return res.status(200).json({
                 success: true,
