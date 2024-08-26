@@ -63,7 +63,7 @@ class UserController {
     }
 
     async getAllUsers(req, res) {
-        const users = UserService.allUsers({});
+        const users = await UserService.allUsers();
 
         if (!users) {
             return res.status(404).json({

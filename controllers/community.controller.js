@@ -1,64 +1,76 @@
 const CommunityService = require('../services/community.service');
 const User = require('../services/user.service');
 
+class CommunityController {
+    async getCommunities(req, res) {
+        try {
+            const communities = await CommunityService.getAllCommunties();
 
-class CommunityController{
+            return res.status(200).json({
+                success: true,
+                message: 'Successful!',
+                data: communities
+            });
+        } catch (error) {
+            return res.status(401).json({
+                success: false,
+                message: error.message
+            });
+        }
+    }
 
     // Creating a new community
-    async create(req, res){
-        try{
+    async create(req, res) {
+        try {
             const { name, description, rules, topics } = req.body;
 
             const existingCommunity = await CommunityService.findCommunity(name);
-            console.log(existingCommunity)
+            console.log(existingCommunity);
 
-            if(existingCommunity){
+            if (existingCommunity) {
                 return res.status(400).json({
                     success: false,
-                    message: "Community already exists!"
-                })
+                    message: 'Community already exists!'
+                });
             }
 
             const newCommunity = CommunityService.create(name, description, rules, topics);
 
             return res.status(200).json({
                 success: true,
-                message: "Community created successfully!",
+                message: 'Community created successfully!',
                 data: newCommunity
-            })
-
-            
-        }catch(error){
+            });
+        } catch (error) {
             return res.status(401).json({
                 success: false,
                 message: error.message
-            })
+            });
         }
-        
     }
 
-    async join(req, res){
-        try{
+    async join(req, res) {
+        try {
             const { communityId, userId } = req.body;
 
             const community = await CommunityService.findCommunityById(communityId);
             const user = await User.getUserById(userId);
 
-            if(!community || !user){
+            if (!community || !user) {
                 return res.status(400).json({
                     success: false,
                     message: "User or Community doesn't exists!"
-                })
+                });
             }
 
             const existingUserCom = await CommunityService.findUserCommunity(communityId, userId);
-            console.log(existingUserCom)
+            console.log(existingUserCom);
 
-            if(existingUserCom){
+            if (existingUserCom) {
                 return res.status(400).json({
                     success: false,
                     message: `You already belong ${community.name}`
-                })
+                });
             }
 
             const newUser = await CommunityService.joinCommunity(communityId, userId);
@@ -67,122 +79,134 @@ class CommunityController{
                 success: true,
                 message: `You are now a member ${community.name}`,
                 data: newUser
-            })
-
-
-        }catch(error){
+            });
+        } catch (error) {
             return res.status(401).json({
                 success: false,
                 message: error.message
-            })
+            });
         }
     }
 
-    async post(req, res){
-        try{
+    async post(req, res) {
+        try {
             const { userId, communityId, message } = req.body;
 
             const community = await CommunityService.findCommunityById(communityId);
             const user = await User.getUserById(userId);
 
-
-
-            if(!community || !user){
+            if (!community || !user) {
                 return res.status(400).json({
                     success: false,
-                    message: "Message failed to send!"
-                })
+                    message: 'Message failed to send!'
+                });
             }
 
-            const newMessage = await CommunityService.postMessage(communityId, userId, message);
+            const newPost = await CommunityService.postMessage(communityId, userId, message);
 
             return res.status(200).json({
                 success: true,
-                message: "Community created successfully!",
-                data: newMessage
-            })
-
-
-        }catch(error){
+                message: 'Successful!',
+                data: newPost
+            });
+        } catch (error) {
             return res.status(401).json({
                 success: false,
                 message: error.message
-            })
+            });
         }
     }
 
-    async leave(req, res){
-        try{
+    async getpost(req, res) {
+        const communityId = req.body.communityId;
+        console.log(communityId);
+
+        try {
+            const community = await CommunityService.findCommunityById(communityId);
+            if (!community) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Community doesn't exists!"
+                });
+            }
+
+            const communityPosts = await CommunityService.posts(communityId);
+            console.log(communityPosts);
+
+            return res.status(200).json({
+                success: true,
+                message: 'Successful',
+                data: communityPosts
+            });
+        } catch (error) {
+            return res.status(401).json({
+                success: false,
+                message: error.message
+            });
+        }
+    }
+
+    async leave(req, res) {
+        try {
             const { communityId, userId } = req.body;
 
-            const community = await Community.findCommunityById(communityId);
-            const user = await User.getUser(userId);
+            const community = await CommunityService.findCommunityById(communityId);
+            const user = await User.getUserById(userId);
 
-
-            if(!community || !user){
+            if (!community || !user) {
                 return res.status(400).json({
                     success: false,
                     message: "User or Community doesn't exists!"
-                })
+                });
             }
 
-            const existingUserCom = CommunityService.findUserCommunity(communityId, userId);
+            const existingUserCom = CommunityService.leaveCommunity(communityId, userId);
 
-            if(!existingUserCom){
+            if (!existingUserCom) {
                 return res.status(400).json({
                     success: false,
                     message: "You don't belong to this community"
-                })
+                });
             }
 
             await CommunityService.leaveCommunity(existingUserCom._id);
 
             return res.status(200).json({
                 success: true,
-                message: "You left the community",
-            })
-
-
-        }catch(error){
+                message: 'You left the community'
+            });
+        } catch (error) {
             return res.status(401).json({
                 success: false,
                 message: error.message
-            })
+            });
         }
     }
 
-    async delete(req, res){
-        try{
+    async delete(req, res) {
+        try {
             const id = req.params.id;
 
             const existingCommunity = CommunityService.deleteCommunity(id);
 
-            if(!existingCommunity){
+            if (!existingCommunity) {
                 return res.status(400).json({
                     success: false,
                     message: "Community doesn't exists!"
-                })
+                });
             }
 
             return res.status(200).json({
                 success: true,
-                message: "Community deleted successfully!"
-            })
-
-            
-        }catch(error){
+                message: 'Community deleted successfully!'
+            });
+        } catch (error) {
             return res.status(401).json({
                 success: false,
                 message: error.message
-            })
+            });
         }
-
-        
     }
-
-
-
-    
 }
 
 module.exports = new CommunityController();

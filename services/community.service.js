@@ -3,57 +3,69 @@ const UserCommunity = require('../models/usercommunities.model');
 const Message = require('../models/messages.model');
 
 class CommunityService {
+    // Gettin all communties
+    async getAllCommunties() {
+        const communities = await Community.find({});
+        return communities;
+    }
+
     // Finding a community by name
-    async findCommunity(name){
+    async findCommunity(name) {
         const existingCommunity = await Community.findOne({ name });
-        return existingCommunity
+        return existingCommunity;
     }
 
     // Finding a community by Id
-    async findCommunityById(id){
-        const existingCommunity = await Community.findOne({ _id: id});
-        return existingCommunity
+    async findCommunityById(id) {
+        const existingCommunity = await Community.findOne({ _id: id });
+        return existingCommunity;
     }
 
     // Creating a new community
-    async create(name, description, rules, topics){
+    async create(name, description, rules, topics) {
         const community = new Community({ name, description, rules, topics });
         await community.save();
         return community;
     }
 
-
     // Finding users in a community
-    async findUserCommunity(communityId, userId){
-        const userCommunity = await UserCommunity.findOne({ communityId, userId })
+    async findUserCommunity(communityId, userId) {
+        const userCommunity = await UserCommunity.findOne({ communityId, userId });
         return userCommunity;
     }
 
     // Joining a community
-    async joinCommunity(communityId, userId){
+    async joinCommunity(communityId, userId) {
         const newUerCommunity = new UserCommunity({ communityId, userId });
-        newUerCommunity.save()
+        newUerCommunity.save();
         return await newUerCommunity;
     }
 
     // Leaving a community
-    async leaveCommunity(id){
-        const userCommunity = await UserCommunity.findOneAndDelete({ _id: id });
+    async leaveCommunity(communityId, userId) {
+        const userCommunity = await UserCommunity.findOneAndDelete({ communityId, userId });
         return userCommunity;
     }
 
     // Deleting a community
-    async deleteCommunity(id){
+    async deleteCommunity(id) {
         const userCommunity = await Community.findOneAndDelete({ _id: id });
         return userCommunity;
     }
 
     // Sending a message/post in a community
-    async postMessage(communityId, userId, message){
+    async postMessage(communityId, userId, message) {
         const newMsg = new Message({ communityId, userId, message, time: Date.now() });
-        newMsg.save()
+        newMsg.save();
         return newMsg;
+    }
+
+    // Getting all the Posts in a community
+
+    async posts(communityId) {
+        const posts = await Message.find({ communityId }).populate('userId', '-walletid -updatedAt -createdAt -__v').exec();
+        return posts;
     }
 }
 
-module.exports = new CommunityService()
+module.exports = new CommunityService();

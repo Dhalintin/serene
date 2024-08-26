@@ -13,7 +13,7 @@ class UserService {
     }
 
     async allUsers() {
-        const users = User.find({});
+        const users = await User.find({});
         return users;
     }
 
