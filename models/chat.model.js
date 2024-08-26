@@ -8,12 +8,7 @@ const chatSchema = new Schema({
     },
     senderId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Professional',
-        required: true
-    },
-    recieverId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'SereneUser',
         required: true
     },
     message: {
