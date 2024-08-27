@@ -25,7 +25,6 @@ class CommunityController {
             const { name, description, rules, topics } = req.body;
 
             const existingCommunity = await CommunityService.findCommunity(name);
-            console.log(existingCommunity);
 
             if (existingCommunity) {
                 return res.status(400).json({
@@ -34,7 +33,7 @@ class CommunityController {
                 });
             }
 
-            const newCommunity = CommunityService.create(name, description, rules, topics);
+            const newCommunity = await CommunityService.create(name, description, rules, topics);
 
             return res.status(200).json({
                 success: true,
