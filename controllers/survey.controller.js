@@ -1,5 +1,6 @@
 const SurveyService = require('../services/survey.service');
 const UserService = require('../services/user.service');
+const CategoryService = require('../services/category.service');
 
 class SurveyController {
     async getQuestion(req, res) {
@@ -69,12 +70,25 @@ class SurveyController {
                 });
             }
 
+            const allCat = await CategoryService.get_all_categories();
             const survey = await SurveyService.store(userId, response);
+            const usercat = await SurveyService.getUserCat(userId);
+            if (!usercat) {
+                const newCat = await SurveyService.addCat(userId, response, allCat);
+
+                return res.status(200).json({
+                    success: true,
+                    message: 'Response store successfully!',
+                    data: survey,
+                    category: newCat
+                });
+            }
 
             return res.status(200).json({
                 success: true,
                 message: 'Response store successfully!',
-                data: survey
+                data: survey,
+                category: usercat
             });
         } catch (error) {
             return res.status(401).json({
