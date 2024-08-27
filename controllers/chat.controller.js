@@ -70,6 +70,7 @@ class ChatController {
             });
         }
     }
+
     async store(req, res) {
         const { senderId, recieverId, roomId, message } = req.body;
 
@@ -131,7 +132,7 @@ class ChatController {
         try {
             const chatMessage = await ChatService.getChatMessage(roomId);
 
-            if (!existingRoom) {
+            if (!chatMessage) {
                 return res.status(401).json({
                     success: false,
                     message: "Chat doesn't exist!"

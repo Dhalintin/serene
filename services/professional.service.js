@@ -43,12 +43,12 @@ class ProfessionalService {
     }
 
     async update(id, data) {
-        const { name, type, specialization, experience, email, phone, day, startTime, endTime, rating } = data;
+        const { name, type, specialization, experience, email, phone, day, startTime, endTime, rating, about } = data;
 
         const contactInfo = [email, phone];
         const availability = [day, startTime, endTime];
 
-        const updatedProf = await Professional.findOneAndUpdate({ _id: id }, { name, type, specialization, experience, contactInfo, availability, rating }, { new: true });
+        const updatedProf = await Professional.findOneAndUpdate({ _id: id }, { name, type, specialization, experience, contactInfo, availability, rating, about }, { new: true });
 
         return updatedProf;
     }
