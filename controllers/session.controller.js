@@ -29,9 +29,8 @@ class SessionController {
 
     async view(req, res) {
         try {
-            const id = req.body.id;
+            const id = req.params.id;
             const session = await SessionService.findById(id);
-
             if (!session) {
                 return res.status(404).json({
                     success: false,

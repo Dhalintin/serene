@@ -116,8 +116,7 @@ class CommunityController {
     }
 
     async getposts(req, res) {
-        const communityId = req.body.communityId;
-        console.log(communityId);
+        const communityId = req.params.communityid;
 
         try {
             const community = await CommunityService.findCommunityById(communityId);
