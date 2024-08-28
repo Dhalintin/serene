@@ -27,7 +27,7 @@ class SurveyService {
     }
 
     async addCat(userId, response, allCat) {
-        const category = await SurveyUtil.getCategory(response[1].answer, allCat);
+        const category = await SurveyUtil.getCategory(response[0].answer, allCat);
         const newCategory = new UserCategory({ userId, category });
         await newCategory.save();
         return newCategory;
