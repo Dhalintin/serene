@@ -121,7 +121,7 @@ class SessionController {
                 });
             }
 
-            const confirmedSession = SessionService.confirm(id);
+            const confirmedSession = await SessionService.confirm(id);
 
             return res.status(200).json({
                 success: true,

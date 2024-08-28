@@ -151,6 +151,25 @@ class ChatController {
             });
         }
     }
+
+    async clearChatMessages(req, res) {
+        const roomId = req.params.roomId;
+
+        try {
+            const result = await ChatService.clearChat(roomId);
+
+            return res.status(200).json({
+                success: true,
+                message: 'Successful!',
+                data: result
+            });
+        } catch (error) {
+            return res.status(401).json({
+                success: false,
+                message: error.message
+            });
+        }
+    }
 }
 
 module.exports = new ChatController();

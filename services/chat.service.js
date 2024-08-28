@@ -47,6 +47,12 @@ class ChatService {
         const userRooms = await ChatRoom.findOne({ members: userId });
         return userRooms;
     }
+
+    async clearChat(roomId) {
+        const result = await Chat.deleteMany({ roomId });
+
+        return result;
+    }
 }
 
 module.exports = new ChatService();

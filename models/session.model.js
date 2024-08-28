@@ -13,7 +13,8 @@ const SessionSchema = new mongoose.Schema({
     },
     sessionType: {
         type: String,
-        enum: ['therapy', 'counseling', 'consultation', 'assessment'],
+        enum: ['call', 'counseling', 'consultation', 'assessment'],
+        default: 'call',
         required: true
     },
     date: {
@@ -37,6 +38,13 @@ const SessionSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
+});
+
+SessionSchema.pre('save', function (next) {
+    if (typeof this.date === 'string') {
+        this.date = new Date(this.date);
+    }
+    next();
 });
 
 const Session = mongoose.model('Session', SessionSchema);
