@@ -15,12 +15,11 @@ class ProfessionalService {
     }
 
     async addProf(body) {
-        const { name, type, specialization, experience, email, phone, day, startTime, endTime, rating, about, gender } = body;
+        const { name, type, specialization, experience, email, phone, availability, ratings, about, gender, image } = body;
 
         const contactInfo = [email, phone];
-        const availability = { day, startTime, endTime };
 
-        const newProf = new Professional({ name, type, expertise: specialization, experience, email, phone, contactInfo, availability, ratings: rating, about, gender });
+        const newProf = new Professional({ name, type, expertise: specialization, experience, email, phone, contactInfo, availability, ratings, about, gender, image });
         await newProf.save();
         return newProf;
     }

@@ -49,11 +49,11 @@ const professionalSchema = new mongoose.Schema({
                 enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
                 required: true
             },
-            startTime: {
+            start: {
                 type: String,
                 required: true
             },
-            endTime: {
+            end: {
                 type: String,
                 required: true
             }
@@ -64,6 +64,11 @@ const professionalSchema = new mongoose.Schema({
         default: 0,
         min: 0,
         max: 5
+    },
+    image: {
+        type: String,
+        required: true,
+        trim: true
     }
 });
 
