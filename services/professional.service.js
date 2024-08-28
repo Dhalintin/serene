@@ -20,7 +20,7 @@ class ProfessionalService {
         const contactInfo = [email, phone];
         const availability = { day, startTime, endTime };
 
-        const newProf = new Professional({ name, type, expertise: specialization, experience, email, phone, contactInfo, availability, rating, about, gender });
+        const newProf = new Professional({ name, type, expertise: specialization, experience, email, phone, contactInfo, availability, ratings: rating, about, gender });
         await newProf.save();
         return newProf;
     }
