@@ -128,7 +128,6 @@ class CommunityController {
             }
 
             const communityPosts = await CommunityService.posts(communityId);
-            console.log(communityPosts);
 
             return res.status(200).json({
                 success: true,
