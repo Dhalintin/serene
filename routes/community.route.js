@@ -17,7 +17,12 @@ router.post('/join', community.join);
 router.post('/message', community.post);
 
 // Getting post  in a community
-router.get('/post', community.getpost);
+router.get('/post', community.getposts);
+
+// Viewing all communities
+router.get('/post/:id', community.getPost);
+
+router.get('/usercommunity', community.getUserCommunity);
 
 // Leaving a community
 router.post('/leave', community.leave);
