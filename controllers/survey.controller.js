@@ -70,26 +70,13 @@ class SurveyController {
                 });
             }
 
-            const survey = await SurveyService.store(userId, response);
-
             const allCat = await CategoryService.get_all_categories();
-            const usercat = await SurveyService.getUserCat(userId);
-            if (!usercat) {
-                const newCat = await SurveyService.addCat(userId, response, allCat);
-
-                return res.status(200).json({
-                    success: true,
-                    message: 'Response store successfully!',
-                    data: survey,
-                    category: newCat
-                });
-            }
+            const survey = await SurveyService.store(userId, response, allCat);
 
             return res.status(200).json({
                 success: true,
                 message: 'Response store successfully!',
-                data: survey,
-                category: usercat
+                data: survey
             });
         } catch (error) {
             return res.status(401).json({
