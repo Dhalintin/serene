@@ -1,5 +1,7 @@
 const Survey = require('../models/survey.model');
 const Question = require('../models/question.model');
+const SurveyUtil = require('../utils/survey.util');
+const UserCategory = require('../models/usercategory.model');
 
 class SurveyService {
     async getQues() {
@@ -18,15 +20,26 @@ class SurveyService {
         return quest;
     }
 
-    async store(userId, response) {
+    async store(userId, response, allCat) {
         const newSurvey = new Survey({ userId, response });
         await newSurvey.save();
         return newSurvey;
     }
 
+    async addCat(userId, response, allCat) {
+        const category = await SurveyUtil.getCategory(response[1].answer, allCat);
+        const newCategory = new UserCategory({ userId, category });
+        await newCategory.save();
+        return newCategory;
+    }
+
     async getRes(userId) {
         const surveyResponse = await Survey.findOne({ userId });
         return surveyResponse;
+    }
+
+    async getUserCat(userId) {
+        const userCat = await UserCategory.find({ userId });
     }
 }
 
