@@ -13,6 +13,10 @@ class SurveyUtil {
 
         return category;
     }
+
+    async findQuestion(response) {
+        return response.find((item) => item.id === '66bf5042fd8260d6b4bf162b');
+    }
 }
 
 module.exports = new SurveyUtil();

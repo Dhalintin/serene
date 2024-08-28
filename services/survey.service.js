@@ -21,16 +21,11 @@ class SurveyService {
     }
 
     async store(userId, response, allCat) {
-        const newSurvey = new Survey({ userId, response });
+        const responses = await SurveyUtil.findQuestion(response);
+        const category = await SurveyUtil.getCategory(responses.answer, allCat);
+        const newSurvey = new Survey({ userId, response, category });
         await newSurvey.save();
         return newSurvey;
-    }
-
-    async addCat(userId, response, allCat) {
-        const category = await SurveyUtil.getCategory(response[0].answer, allCat);
-        const newCategory = new UserCategory({ userId, category });
-        await newCategory.save();
-        return newCategory;
     }
 
     async getRes(userId) {
