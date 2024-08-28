@@ -13,7 +13,7 @@ class SessionService {
     }
 
     async findById(id) {
-        const session = await Session.findOne({ _id: id });
+        const session = await Session.findById(id);
         return session;
     }
 
