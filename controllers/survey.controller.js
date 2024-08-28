@@ -70,8 +70,9 @@ class SurveyController {
                 });
             }
 
-            const allCat = await CategoryService.get_all_categories();
             const survey = await SurveyService.store(userId, response);
+
+            const allCat = await CategoryService.get_all_categories();
             const usercat = await SurveyService.getUserCat(userId);
             if (!usercat) {
                 const newCat = await SurveyService.addCat(userId, response, allCat);
