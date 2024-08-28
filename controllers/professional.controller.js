@@ -30,6 +30,44 @@ class ProfessionalController {
         }
     }
 
+    async login(req, res) {
+        const email = req.body.email;
+
+        try {
+            const professional = await ProfessionalService.findProf(email, phone);
+
+            if (!professional) {
+                return res.status(401).json({
+                    success: false,
+                    message: "User doesn't exists!"
+                });
+            }
+
+            const token = jwt.sign(
+                {
+                    username: professional.name,
+                    walletid: professional.phone
+                },
+                process.env.JWT_KEY,
+                {
+                    expiresIn: '72h'
+                }
+            );
+
+            return res.status(200).json({
+                success: true,
+                message: 'Login successful',
+                data: professional,
+                token: token
+            });
+        } catch (error) {
+            res.status(401).json({
+                success: false,
+                message: error.message
+            });
+        }
+    }
+
     async viewall(req, res) {
         try {
             const professional = await ProfessionalService.getAllProf();

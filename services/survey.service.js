@@ -40,6 +40,7 @@ class SurveyService {
 
     async getUserCat(userId) {
         const userCat = await UserCategory.find({ userId });
+        return userCat;
     }
 }
 

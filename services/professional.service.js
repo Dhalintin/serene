@@ -1,7 +1,7 @@
 const Professional = require('../models/professional.model');
 
 class ProfessionalService {
-    async findProf(email, phone) {
+    async findProf(email, phone = null) {
         const existingProf = await Professional.findOne({
             $or: [{ email }, { phone }]
         });
