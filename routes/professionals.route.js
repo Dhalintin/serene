@@ -6,6 +6,9 @@ const controller = require('../controllers/professional.controller');
 // Register a professional
 router.post('/create', controller.create);
 
+// Log Professional in
+router.post('/login', controller.login);
+
 // View all professional
 router.get('/', controller.viewall);
 

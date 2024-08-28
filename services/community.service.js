@@ -62,7 +62,7 @@ class CommunityService {
 
     // Getting all the Posts in a community
     async posts(communityId) {
-        const posts = await Message.find({ communityId }).populate('userId', '-walletid -updatedAt -createdAt -__v').exec();
+        const posts = await Message.find({ communityId });
         return posts;
     }
 
