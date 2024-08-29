@@ -15,11 +15,11 @@ class ProfessionalService {
     }
 
     async addProf(body) {
-        const { name, type, specialization, experience, email, phone, availability, ratings, about, gender, image } = body;
+        const { name, type, specialization, experience, email, phone, availability, ratings, about, gender, image, category } = body;
 
         const contactInfo = [email, phone];
 
-        const newProf = new Professional({ name, type, expertise: specialization, experience, email, phone, contactInfo, availability, ratings, about, gender, image });
+        const newProf = new Professional({ name, type, expertise: specialization, experience, email, phone, contactInfo, availability, ratings, about, gender, image, category });
         await newProf.save();
         return newProf;
     }
@@ -42,17 +42,22 @@ class ProfessionalService {
     }
 
     async update(id, data) {
-        const { name, type, specialization, experience, email, phone, availability, ratings, about, gender, image } = data;
+        const { name, type, specialization, experience, email, phone, availability, ratings, about, gender, image, category } = data;
 
         const contactInfo = [email, phone];
 
         const updatedProf = await Professional.findOneAndUpdate(
             { _id: id },
-            { name, type, expertise: specialization, experience, email, phone, contactInfo, availability, ratings, about, gender, image },
+            { name, type, expertise: specialization, experience, email, phone, contactInfo, availability, ratings, about, gender, image, category },
             { new: true }
         );
 
         return updatedProf;
+    }
+
+    async getProfByCat(searchCategories) {
+        const prof = await Professional.find({ category: { $in: searchCategories } });
+        return prof;
     }
 
     async findByField(field) {

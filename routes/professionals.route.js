@@ -12,6 +12,9 @@ router.post('/login', controller.login);
 // View all professional
 router.get('/', controller.viewall);
 
+// View all professionals in a category
+router.get('/category', controller.viewByCat);
+
 // Edit a professional's profile
 router.patch('/:id', controller.edit);
 
