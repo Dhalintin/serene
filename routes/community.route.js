@@ -7,6 +7,9 @@ const communityValidation = require('../middlewares/createcommunity.middleware')
 // Viewing all communities
 router.get('/', community.getCommunities);
 
+// Viewing a community
+router.get('/:id', community.getACommunity);
+
 // Creating a community
 router.post('/create', communityValidation, community.create);
 
@@ -19,10 +22,10 @@ router.post('/message', community.post);
 // Getting post  in a community
 router.get('/post/:communityid', community.getposts);
 
-// Viewing all communities
+// Viewing all communities posts
 router.get('/post/:id', community.getPost);
 
-router.get('/usercommunity', community.getUserCommunity);
+router.get('/usercommunity/:userid', community.getUserCommunity);
 
 // Leaving a community
 router.post('/leave', community.leave);

@@ -19,6 +19,27 @@ class CommunityController {
         }
     }
 
+    async getACommunity(req, res) {
+        try {
+            const communityId = req.params.id;
+
+            const community = await CommunityService.getCommunity(communityId);
+            const countMembers = await CommunityService.countMembers(communityId);
+
+            return res.status(200).json({
+                success: true,
+                message: 'Successful!',
+                data: community,
+                numOfMembers: countMembers
+            });
+        } catch (error) {
+            return res.status(401).json({
+                success: false,
+                message: error.message
+            });
+        }
+    }
+
     // Creating a new community
     async create(req, res) {
         try {
@@ -206,7 +227,7 @@ class CommunityController {
 
     async getUserCommunity(req, res) {
         try {
-            const userId = req.body.userId;
+            const userId = req.params.userid;
 
             const user = await User.getUserById(userId);
 

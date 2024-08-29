@@ -9,6 +9,16 @@ class CommunityService {
         return communities;
     }
 
+    async getCommunity(communityId) {
+        const community = await Community.findById(communityId);
+        return community;
+    }
+
+    async countMembers(communityId) {
+        const users = await UserCommunity.find({ communityId });
+        return users.length;
+    }
+
     // Finding a community by name
     async findCommunity(name) {
         const existingCommunity = await Community.findOne({ name });
@@ -62,7 +72,7 @@ class CommunityService {
 
     // Getting all the Posts in a community
     async posts(communityId) {
-        const posts = await Message.find({ communityId });
+        const posts = await Message.find({ communityId }).populate('userId', '-walletid -type -category -createdAt -updatedAt -createdat -__v').exec();
         return posts;
     }
 
