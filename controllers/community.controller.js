@@ -43,7 +43,7 @@ class CommunityController {
     // Creating a new community
     async create(req, res) {
         try {
-            const { name, description, rules, topics } = req.body;
+            const { name, description, rules, topics, profpic, coverpic } = req.body;
 
             const existingCommunity = await CommunityService.findCommunity(name);
 
@@ -54,7 +54,7 @@ class CommunityController {
                 });
             }
 
-            const newCommunity = await CommunityService.create(name, description, rules, topics);
+            const newCommunity = await CommunityService.create(name, description, rules, topics, profpic, coverpic);
 
             return res.status(200).json({
                 success: true,

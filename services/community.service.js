@@ -32,15 +32,15 @@ class CommunityService {
     }
 
     // Creating a new community
-    async create(name, description, rules, topics) {
-        const community = new Community({ name, description, rules, topics });
+    async create(name, description, rules, topics, profpic, coverpic) {
+        const community = new Community({ name, description, rules, topics, profpic, coverpic });
         await community.save();
         return community;
     }
 
     // Finding users in a community
     async findUserCommunity(communityId, userId) {
-        const userCommunity = await UserCommunity.findOne({ communityId, userId });
+        const userCommunity = await UserCommunity.findOne({ communityId, profpic, coverpic });
         return userCommunity;
     }
 

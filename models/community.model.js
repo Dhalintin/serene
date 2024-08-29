@@ -9,19 +9,30 @@ const communitySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    rules: [{
-        type: String
-    }],
-    topics: [{
-        type: String
-    }],
+    rules: [
+        {
+            type: String
+        }
+    ],
+    topics: [
+        {
+            type: String
+        }
+    ],
+    profpic: {
+        type: String,
+        required: true
+    },
+    coverpic: {
+        type: String,
+        required: true
+    },
     createdAt: {
         type: Date,
-        default: Date.now,
+        default: Date.now
     }
 });
 
 const Community = mongoose.model('Community', communitySchema);
 
 module.exports = Community;
-

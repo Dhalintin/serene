@@ -118,6 +118,32 @@ class ProfessionalController {
         }
     }
 
+    async viewByCat(req, res) {
+        try {
+            const category = req.body.category;
+            const professional = await ProfessionalService.getProfByCat(category);
+
+            if (professional.length <= 0) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'No professional found!'
+                });
+            }
+
+            return res.status(200).json({
+                sucesss: true,
+                message: 'Successful!',
+                data: professional,
+                num: professional.length
+            });
+        } catch (error) {
+            res.status(401).json({
+                success: false,
+                message: error.message
+            });
+        }
+    }
+
     async edit(req, res) {
         const id = req.params.id;
 

@@ -23,6 +23,13 @@ const professionalSchema = new mongoose.Schema({
             trim: true
         }
     ],
+    category: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Category',
+            required: true
+        }
+    ],
     about: {
         type: String,
         required: true,
