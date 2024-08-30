@@ -7,6 +7,9 @@ const chat = require('../controllers/chat.controller');
 router.post('/create', chat.createRoom);
 
 // Saving a chat message
+router.post('/getchat', chat.getRoomAndMessages);
+
+// Saving a chat message
 router.post('/store', chat.store);
 
 // Getting all messages for a user

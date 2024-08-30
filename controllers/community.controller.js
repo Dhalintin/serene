@@ -88,7 +88,7 @@ class CommunityController {
             if (existingUserCom) {
                 return res.status(400).json({
                     success: false,
-                    message: `You already belong ${community.name}`
+                    message: `You already belong to ${community.name}`
                 });
             }
 

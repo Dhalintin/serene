@@ -7,30 +7,30 @@ class ChatController {
         const { userId1, userId2 } = req.body;
 
         try {
-            const user1 = await UserService.getUserById(userId1);
-            const user2 = await UserService.getUserById(userId2);
+            const checkUser = await UserService.checkUser(userId1, userId2);
+            const checkProf = await ProfService.checkProf(userId1, userId2);
 
-            if (!user1 || !user2) {
+            if (!checkProf || !checkUser) {
                 return res.status(401).json({
                     success: false,
                     message: 'Invalid user!'
                 });
             }
 
-            const room = await ChatService.getChatRoom(user1, user2);
+            const room = await ChatService.getChatRoom(userId1, userId2);
 
             if (room) {
                 return res.status(200).json({
                     success: true,
-                    message: 'Message sent!',
+                    message: 'Success',
                     data: room
                 });
             } else {
-                const newRoom = await ChatService.createRoom(user1, user2);
+                const newRoom = await ChatService.createRoom(userId1, userId2);
 
                 return res.status(200).json({
                     success: true,
-                    message: 'Message sent!',
+                    message: 'Success!',
                     data: newRoom
                 });
             }
@@ -63,6 +63,39 @@ class ChatController {
                 message: 'Successful!',
                 data: userRooms
             });
+        } catch (error) {
+            return res.status(401).json({
+                success: false,
+                message: error.message
+            });
+        }
+    }
+
+    async getRoomAndMessages(req, res) {
+        const { userId1, userId2 } = req.body;
+
+        try {
+            const checkUser = await UserService.checkUser(userId1, userId2);
+            const checkProf = await ProfService.checkProf(userId1, userId2);
+
+            if (!checkProf || !checkUser) {
+                return res.status(401).json({
+                    success: false,
+                    message: 'Invalid user!'
+                });
+            }
+
+            const room = await ChatService.getChatRoom(userId1, userId2);
+
+            if (room) {
+                const messages = await ChatService.getChatMessage(room._id);
+                return res.status(200).json({
+                    success: true,
+                    message: 'Success',
+                    data: messages
+                });
+            }
+            //
         } catch (error) {
             return res.status(401).json({
                 success: false,

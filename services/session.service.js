@@ -13,7 +13,10 @@ class SessionService {
     }
 
     async findById(id) {
-        const session = await Session.findById(id);
+        const session = await Session.findById(id)
+            .populate('userId', '-createdAt -updatedAt -walletid  -__v')
+            .populate('professionalId', '-gender -about -email -phone -expertise -experience -ratings -availability -category -createdAt -updatedAt, -__v')
+            .exec();
         return session;
     }
 

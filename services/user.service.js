@@ -6,6 +6,13 @@ class UserService {
         return existingUser;
     }
 
+    async checkUser(userId1, userId2) {
+        const existingUser1 = await User.findById(userId1);
+        const existingUser2 = await User.findById(userId2);
+        if (!existingUser2 && !existingUser1) return false;
+        return true;
+    }
+
     async addUser(walletid, username, avatar) {
         const user = new User({ walletid, username, avatar });
         user.save();
