@@ -14,6 +14,13 @@ class ProfessionalService {
         return prof;
     }
 
+    async checkProf(userId1, userId2) {
+        const existingUser1 = await Professional.findById(userId1);
+        const existingUser2 = await Professional.findById(userId2);
+        if (!existingUser2 && !existingUser1) return false;
+        return true;
+    }
+
     async addProf(body) {
         const { name, type, specialization, experience, email, phone, availability, ratings, about, gender, image, category } = body;
 

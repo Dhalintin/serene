@@ -40,15 +40,15 @@ class CommunityService {
 
     // Finding users in a community
     async findUserCommunity(communityId, userId) {
-        const userCommunity = await UserCommunity.findOne({ communityId, profpic, coverpic });
+        const userCommunity = await UserCommunity.findOne({ communityId, userId });
         return userCommunity;
     }
 
     // Joining a community
     async joinCommunity(communityId, userId) {
         const newUerCommunity = new UserCommunity({ communityId, userId });
-        newUerCommunity.save();
-        return await newUerCommunity;
+        await newUerCommunity.save();
+        return newUerCommunity;
     }
 
     // Leaving a community

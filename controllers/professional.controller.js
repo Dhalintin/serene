@@ -1,5 +1,6 @@
 const Professional = require('../models/professional.model');
 const ProfessionalService = require('../services/professional.service');
+const jwt = require('jsonwebtoken');
 
 class ProfessionalController {
     async create(req, res) {
@@ -34,7 +35,7 @@ class ProfessionalController {
         const email = req.body.email;
 
         try {
-            const professional = await ProfessionalService.findProf(email, phone);
+            const professional = await ProfessionalService.findProf(email);
 
             if (!professional) {
                 return res.status(401).json({
