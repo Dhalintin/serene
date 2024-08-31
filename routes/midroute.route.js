@@ -10,12 +10,16 @@ const sessionRoute = require('./session.route');
 const article_route = require('./article.route');
 const surveyRoute = require('./survey.route');
 const chatRoute = require('./chat.route');
+const commentRoute = require('./comment.route');
 
 // User Route
 router.use('/user', userRoute);
 
 // Community Route
 router.use('/community', communityRoute);
+
+// Community Route
+router.use('/comment', commentRoute);
 
 // Professionals' Route
 router.use('/professional', profRoute);
