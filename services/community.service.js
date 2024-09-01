@@ -53,9 +53,9 @@ class CommunityService {
     }
 
     // Leaving a community
-    async leaveCommunity(communityId, userId) {
-        const userCommunity = await UserCommunity.findOneAndDelete({ communityId, userId });
-        if (userCommunity) await Community.findOneAndUpdate({ _id: communityId }, { $dec: { members: 1 } });
+    async leaveCommunity(id, communityId) {
+        const userCommunity = await UserCommunity.findOneAndDelete({ _id: id });
+        if (userCommunity) await Community.findOneAndUpdate({ _id: communityId }, { $inc: { members: -1 } });
         return userCommunity;
     }
 
