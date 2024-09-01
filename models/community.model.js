@@ -27,6 +27,10 @@ const communitySchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    members: {
+        type: Number,
+        default: 0
+    },
     createdAt: {
         type: Date,
         default: Date.now

@@ -47,13 +47,15 @@ class CommunityService {
     // Joining a community
     async joinCommunity(communityId, userId) {
         const newUerCommunity = new UserCommunity({ communityId, userId });
-        await newUerCommunity.save();
+        const savedUser = await newUerCommunity.save();
+        if (savedUser) await Community.findOneAndUpdate({ _id: communityId }, { $inc: { members: 1 } });
         return newUerCommunity;
     }
 
     // Leaving a community
     async leaveCommunity(communityId, userId) {
         const userCommunity = await UserCommunity.findOneAndDelete({ communityId, userId });
+        if (userCommunity) await Community.findOneAndUpdate({ _id: communityId }, { $dec: { members: 1 } });
         return userCommunity;
     }
 
