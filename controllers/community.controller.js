@@ -202,7 +202,7 @@ class CommunityController {
                 });
             }
 
-            const existingUserCom = CommunityService.leaveCommunity(communityId, userId);
+            const existingUserCom = await CommunityService.findUserCommunity(communityId, userId);
 
             if (!existingUserCom) {
                 return res.status(400).json({
@@ -211,7 +211,7 @@ class CommunityController {
                 });
             }
 
-            await CommunityService.leaveCommunity(existingUserCom._id);
+            await CommunityService.leaveCommunity(existingUserCom._id, communityId);
 
             return res.status(200).json({
                 success: true,
