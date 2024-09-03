@@ -6,7 +6,7 @@ const chat = require('../controllers/chat.controller');
 // Saving a chat message
 router.post('/create', chat.createRoom);
 
-// Saving a chat message
+// Getting a chat message
 router.post('/getchat', chat.getRoomAndMessages);
 
 // Saving a chat message

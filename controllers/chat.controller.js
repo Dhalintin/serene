@@ -105,20 +105,21 @@ class ChatController {
     }
 
     async store(req, res) {
-        const { senderId, recieverId, roomId, message } = req.body;
+        const { senderId, roomId, message } = req.body;
 
         try {
-            const existingUser = await UserService.getUserByMultipleId(senderId, recieverId);
-            const existingProf = await ProfService.getUserByMultipleId(senderId, recieverId);
+            const existingUser = await UserService.getUserByMultipleId(senderId);
+            const existingProf = await ProfService.getUserByMultipleId(senderId);
 
-            if (!existingUser || !existingProf) {
+            if (!existingUser && !existingProf) {
                 return res.status(401).json({
                     success: false,
                     message: "User doesn't exist!"
                 });
             }
 
-            const newMessage = await ChatService.store(senderId, recieverId, roomId, message);
+            const newMessage = await ChatService.store(senderId, roomId, message);
+            console.log(newMessage);
 
             return res.status(200).json({
                 success: true,
