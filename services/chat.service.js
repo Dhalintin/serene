@@ -3,9 +3,10 @@ const ChatUtil = require('../utils/chat.util');
 const ChatRoom = require('../models/chatroom.model');
 
 class ChatService {
-    async store(senderId, recieverId, roomId, message) {
+    async store(senderId, roomId, message) {
         const time = await ChatUtil.formatTimestamp(Date.now());
-        const newMessage = new Chat({ senderId, recieverId, roomId, message, time });
+        const newMessage = new Chat({ senderId, roomId, message, time });
+        console.log(newMessage);
         await newMessage.save();
         return newMessage;
     }
