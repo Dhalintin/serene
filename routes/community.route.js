@@ -33,4 +33,7 @@ router.post('/leave', community.leave);
 // Deleting a community
 router.delete('/delete/:id', community.delete);
 
+// Deleting a community
+router.delete('/post/:id', community.deletepost);
+
 module.exports = router;

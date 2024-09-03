@@ -89,6 +89,12 @@ class CommunityService {
         const userCommunities = await UserCommunity.find({ userId });
         return userCommunities;
     }
+
+    // Deleting a post
+    async deletePost(id) {
+        const deletedPost = await Message.findOneAndDelete({ _id: id });
+        return deletedPost;
+    }
 }
 
 module.exports = new CommunityService();
