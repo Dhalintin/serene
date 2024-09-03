@@ -12,8 +12,8 @@ const midRoute = require('./routes/midroute.route');
 
 const io = require('socket.io')(server, {
     cors: {
-        origin: '*',
-        method: '*'
+        origin: 'http://localhost:5173',
+        methods: ['GET', 'POST', 'PATCH', 'DELETE']
     }
 });
 
