@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const { join } = require('path');
 const cors = require('cors');
-const server = require('https').Server(app);
+const server = require('http').Server(app);
 const { v4: uuidv4 } = require('uuid');
 
 const midRoute = require('./routes/midroute.route');
