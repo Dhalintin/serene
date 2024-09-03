@@ -13,7 +13,7 @@ class CommentService {
     }
 
     async getComments(postId) {
-        const comments = await Comment.find({ postId });
+        const comments = await Comment.find({ postId }).populate('userId', '-walletid -type-category -createdAt -updatedAt -_v').exec();
         return comments;
     }
 
