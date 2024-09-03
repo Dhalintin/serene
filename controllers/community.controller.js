@@ -284,6 +284,28 @@ class CommunityController {
             });
         }
     }
+
+    async deletepost(req, res) {
+        const id = req.params.id;
+        try {
+            const deletedPost = await CommunityService.deletePost(id);
+            if (deletedPost) {
+                return res.status(200).json({
+                    success: false,
+                    message: 'Post not found!'
+                });
+            }
+            return res.status(200).json({
+                success: true,
+                message: 'Post deleted successfully!'
+            });
+        } catch (error) {
+            return res.status(401).json({
+                success: false,
+                message: error.message
+            });
+        }
+    }
 }
 
 module.exports = new CommunityController();

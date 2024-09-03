@@ -3,8 +3,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
-const cors = require('cors');
-
 const { join } = require('path');
 const cors = require('cors');
 const server = require('http').Server(app);
