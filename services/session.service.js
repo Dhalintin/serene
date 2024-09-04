@@ -7,7 +7,9 @@ class SessionService {
     }
 
     async createSession(userId, professionalId, sessionType, date, duration) {
-        const session = new Session({ userId, professionalId, sessionType, date, duration });
+        const sess = new Session({ userId, professionalId, sessionType, date, duration });
+        const link = `https://serene-video-call.onrender.com/${sess._id}`;
+        const session = new Session({ _id: sess._id, userId, professionalId, sessionType, date, duration, link });
         session.save();
         return session;
     }
