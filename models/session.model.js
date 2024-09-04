@@ -17,13 +17,18 @@ const SessionSchema = new mongoose.Schema({
         default: 'call',
         required: true
     },
+    link: {
+        type: String,
+        required: true
+    },
     date: {
         type: Date,
         required: true
     },
     duration: {
         type: Number,
-        required: true
+        required: true,
+        default: 30
     },
     status: {
         type: String,
