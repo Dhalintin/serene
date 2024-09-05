@@ -289,7 +289,7 @@ class CommunityController {
         const id = req.params.id;
         try {
             const deletedPost = await CommunityService.deletePost(id);
-            if (deletedPost) {
+            if (!deletedPost) {
                 return res.status(200).json({
                     success: false,
                     message: 'Post not found!'
